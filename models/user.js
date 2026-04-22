@@ -2,14 +2,14 @@ const pool = require('../configs/db');
 
 const getAllUsers = async () => {
     const [rows] = await pool.query(
-        "select id, name, email, phone, address, is_verified, role, is_active, created_at, updated_at from users"
+        "select id, name, email, phone, address, is_verified,role_id, is_active, created_at, updated_at from users"
     );
     return rows;
 }
 
 const getUserByEmail = async (email) => {
     const [row] = await pool.query(
-    "select id, name, email, password, phone, address, is_verified, role from users where email = ?",
+    "select id, name, email, password, phone, address, is_verified, role_id from users where email = ?",
     [email],
   );
   return row[0];
@@ -17,7 +17,7 @@ const getUserByEmail = async (email) => {
 
 const getUserById = async (id) => {
     const [row] = await pool.query(
-    "select id, name, email, password, phone, address, is_verified, role, token from users where id = ?",
+    "select id, name, email, password, phone, address, is_verified, role_id, token from users where id = ?",
     [id],
   );
   return row[0];

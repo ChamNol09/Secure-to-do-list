@@ -4,9 +4,9 @@ const adminController = require("../controllers/adminController");
 const { isLogin } = require("../middlewares/auth");
 const { authoriz } = require("../middlewares/role");
 
-router.get("/users", isLogin, authoriz("admin"), adminController.getAllUsers);
-router.delete('/user/:id', isLogin, authoriz("admin"),adminController.deleteUser);
-router.get('/tasks', isLogin, authoriz("admin"), adminController.getAllTasks);
-router.delete('/task/:id', isLogin, authoriz("admin"), adminController.deleteTask);
+router.get("/users", isLogin, authoriz("user"), adminController.getAllUsers);
+router.delete('/user/:id', isLogin, authoriz("user"),adminController.deleteUser);
+router.get('/tasks', isLogin, authoriz("user"), adminController.getAllTasks);
+router.delete('/task/:id', isLogin, authoriz("user"), adminController.deleteTask);
 
 module.exports = router;

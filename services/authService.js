@@ -4,6 +4,7 @@ const jwtConfig = require("../configs/jwt");
 const jwt = require('jsonwebtoken');
 const crypto = require("crypto");
 const mailService = require("./mailService");
+const roleModel = require("../models/role");
 
 const register = async (body) => {
   const checkEmail = await userModel.getUserByEmail(body.email);
@@ -50,7 +51,6 @@ const login = async (body) => {
   if (!UserInfo) {
     throw new Error("Invalid email or password");
   }
-  console.log(UserInfo.password);
 
   const isMatch = await bcrypt.compare(body.password, UserInfo.password);
   if (!isMatch) {
@@ -59,10 +59,11 @@ const login = async (body) => {
   if (!UserInfo.is_verified) {
     throw new Error("Please verify your email before logging in");
   }
+  const role = await roleModel.getRoleById(UserInfo.role_id);
 
 
   const token = jwt.sign(
-    { id: UserInfo.id, email: UserInfo.email, role: UserInfo.role },
+    { id: UserInfo.id, email: UserInfo.email, role: role.name },
     jwtConfig.secret,
     { expiresIn: jwtConfig.expireIn },
   );
@@ -72,7 +73,6 @@ const login = async (body) => {
 };
 
 const getMe = async (id) => {
-    console.log(id);
     let row = await userModel.getUserById(id);
     return row;
 };
