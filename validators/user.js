@@ -11,6 +11,17 @@ const resgisterUserSchema = Joi.object({
     .required(),
 });
 
+const loginUserSchema = Joi.object({
+  email: Joi.string().email().required(),
+  password: Joi.string().required(),
+});
+
+const resendVerificationEmailSchema = Joi.object({
+  email: Joi.string().email().required(),
+});
+
 module.exports = {
     resgisterUserSchema,
+    loginUserSchema,
+    resendVerificationEmailSchema
 }
