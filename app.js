@@ -8,7 +8,7 @@ const { createAdmin }  = require('./seeds/adminSeed');
 
 (async () => {
     await createAdmin();
-});
+})();
 app.use(cors());
 app.use(express.json());
 app.use('/api/auth', authRoute);
