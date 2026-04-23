@@ -3,7 +3,7 @@ const authService = require("../services/authService");
 const getUserById = async (req, res) => {
   try {
     let result = await authService.getUserById(req.params.id);
-    return res.json({
+    return res.status(200).json({
       result: true,
       msg: "Get user successfully",
       data: result,
@@ -11,7 +11,7 @@ const getUserById = async (req, res) => {
   } catch (error) {
     console.log(error);
 
-    return res.json({
+    return res.status(500).json({
       result: true,
       msg: error.message,
     });
@@ -21,7 +21,7 @@ const getUserById = async (req, res) => {
 const register = async (req, res) => {
   try {
     let result = await authService.register(req.validateData);
-    return res.json({
+    return res.status(201).json({
       result: true,
       msg: "Register successfully",
       data: result,
@@ -29,7 +29,7 @@ const register = async (req, res) => {
   } catch (error) {
     console.log(error);
 
-    return res.json({
+    return res.status(500).json({
       result: true,
       msg: error.message,
     });
@@ -39,14 +39,14 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   try {
     let result = await authService.login(req.body);
-    return res.json({
+    return res.status(200).json({
       result: true,
       msg: "Login successfully",
       data: result,
     });
   } catch (error) {
     console.log(error);
-    return res.json({
+    return res.status(500).json({
       result: false,
       msg: error.message,
     });
@@ -57,14 +57,14 @@ const verificationEmail = async (req, res) => {
   console.log(req.query.token);
   try {
     let result = await authService.verificationEmail(req.query.token);
-    return res.json({
+    return res.status(200).json({
       result: true,
       msg: "Email verified successfully",
       data: result,
     });
   } catch (error) {
     console.log(error);
-    return res.json({
+    return res.status(500).json({
       result: false,
       msg: error.message,
     });
@@ -74,13 +74,13 @@ const verificationEmail = async (req, res) => {
 const resendVerificationEmail = async (req, res) => {
   try {
     let result = await authService.resendVerificationEmail(req.body.email);
-    return res.json({
+    return res.status(200).json({
       result: true,
       msg: result.message,
     });
   } catch (error) {
     console.log(error);
-    return res.json({
+    return res.status(500).json({
       result: false,
       msg: error.message,
     });
@@ -91,14 +91,14 @@ const getMe = async (req, res) => {
   try {
     console.log(req.user.id);
     let result = await authService.getMe(req.user.id);
-    return res.json({
+    return res.status(200).json({
       result: true,
-      msg: "Get user successfully",
+      msg: "Get profile successfully",
       data: result,
     });
   } catch (error) {
     console.log(error);
-    return res.json({
+    return res.status(500).json({
       result: false,
       msg: error.message,
     });

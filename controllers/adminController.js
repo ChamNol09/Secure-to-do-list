@@ -3,14 +3,14 @@ const adminService = require("../services/adminService");
 const getAllUsers = async (req, res) => {
   try {
     const rows = await adminService.getAllUsers();
-    return res.json({
+    return res.status(200).json({
       result: true,
       msg: "Get all users successfully",
       data: rows,
     });
   } catch (error) {
     console.log(error);
-    return res.json({
+    return res.status(500).json({
       result: false,
       msg: error.message,
     });
@@ -20,13 +20,13 @@ const getAllUsers = async (req, res) => {
 const deleteUser = async (req, res) => {
   try {
     await adminService.deleteUser(req.params.id);
-    return res.json({
+    return res.status(200).json({
       result: true,
       msg: "User deleted successfully",
     });
   } catch (error) {
     console.log(error);
-    return res.json({
+    return res.status(500).json({
       result: false,
       msg: error.message,
     });
@@ -36,14 +36,14 @@ const deleteUser = async (req, res) => {
 const getAllTasks = async (req, res) => {
   try {
     let rows = await adminService.getAllTasks();
-    return res.json({
+    return res.status(200).json({
       result: true,
       msg: "Get all tasks successfully",
       data: rows,
     });
   } catch (error) {
     console.log(error);
-    return res.json({
+    return res.status(500).json({
       result: false,
       msg: error.message,
     });
@@ -53,13 +53,13 @@ const getAllTasks = async (req, res) => {
 const deleteTask = async (req, res) => {
   try {
     await adminService.deleteTask(req.params.id);
-    return res.json({
+    return res.status(200).json({
       result: true,
       msg: "Task deleted successfully",
     });
   } catch (error) {
     console.log(error);
-    return res.json({
+    return res.status(500).json({
       result: false,
       msg: error.message,
     });

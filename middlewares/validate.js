@@ -4,7 +4,7 @@ const validate = (schema) => (req, res, next) => {
     });
     console.log(error);
     if(error){
-         res.json({
+         res.status(400).json({
             msg: "Validation error",
             details: error.details.map((d) => d.message)
         })

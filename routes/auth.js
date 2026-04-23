@@ -9,10 +9,6 @@ router.post('/register',validate(resgisterUserSchema), authController.register);
 router.post('/login', validate(loginUserSchema), authController.login);
 router.get('/verify-email', authController.verificationEmail);
 router.post('/resend-verification-email', validate(resendVerificationEmailSchema), authController.resendVerificationEmail);
-// console.log(authController);
 router.get('/profile', isLogin, authController.getMe);
- 
-
-// router.get('/user/:id', isLogin, authController.getUserById);
 
 module.exports = router;

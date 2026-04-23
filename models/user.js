@@ -17,7 +17,7 @@ const getUserByEmail = async (email) => {
 
 const getUserById = async (id) => {
     const [row] = await pool.query(
-    "select id, name, email, password, phone, address, is_verified, role_id, token from users where id = ?",
+    "select id, name, email, phone, address, is_verified, role_id, token, created_at, updated_at from users where id = ?",
     [id],
   );
   return row[0];
@@ -43,12 +43,11 @@ const updateUser = async (id, body) => {
         body.email,
         body.phone,
         body.address,
-        body.role,
-        body,is_active,
+        body.is_active,
         id
     ]
     let [row] = await pool.query(
-        "update users set name = ?, email = ?, phone = ?, address = ?, role = ?, is_active = ? where id = ?",
+        "update users set name = ?, email = ?, phone = ?, address = ?,  is_active = ? where id = ?",
         arr
     );
     return row;
@@ -75,7 +74,7 @@ const deleteToken = async (id) => {
 
 const findVerificationEmail = async (token) => {
     let [result] = await pool.query(
-        "select id, name, email, phone, address, role,is_verified, verification_token, verification_expires from users where verification_token = ?",
+        "select id, name, email, phone, address, role_id, is_verified, verification_token, verification_expires from users where verification_token = ?",
         [token]
     );
     return result;

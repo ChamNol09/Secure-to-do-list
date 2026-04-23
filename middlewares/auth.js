@@ -7,7 +7,7 @@ const isLogin = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
     if (!authHeader) {
-      return res.json({
+      return res.status(401).json({
         result: false,
         msg: "Unauthorized",
       });
@@ -15,7 +15,7 @@ const isLogin = async (req, res, next) => {
 
     let parts = authHeader.split(" ");
     if (parts.length !== 2 || parts[0] !== "Bearer") {
-      return res.json({
+      return res.status(401).json({
         result: false,
         msg: "Invalid token format",
       });
@@ -36,7 +36,7 @@ const isLogin = async (req, res, next) => {
     next();
   } catch (error) {
     console.log(error);
-    return res.json({
+    return res.status(401).json({
       result: false,
       msg: "Invalid or expired token",
     });
